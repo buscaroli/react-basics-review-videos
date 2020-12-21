@@ -11,6 +11,7 @@ function VideoPlayer(props) {
       <iframe 
         src={props.video} 
         allowfullscreen='allowfullscreen' 
+        title='Generic title'
         style={{width: '100%', height: '100%'}}>
       </iframe>
     )
