@@ -1,11 +1,28 @@
-import React, { Component } from 'react'
+import React from 'react'
+import Spinner from './Spinner'
 
-export default class VideoPlayer extends Component {
-  render() {
-    return (
-      <div>
-        VideoPlayer
-      </div>
+function VideoPlayer(props) {
+  
+  const checkVideo = () => {
+    if (!props.video) 
+      return <Spinner message='Enter a Search Term to find a video'/>
+    
+    return(
+      <iframe 
+        src={props.video} 
+        allowfullscreen='allowfullscreen' 
+        style={{width: '100%', height: '100%'}}>
+      </iframe>
     )
   }
+
+  return (
+    <>
+      {checkVideo()}
+    </>
+      
+  )
 }
+
+export default VideoPlayer
+

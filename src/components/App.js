@@ -8,7 +8,7 @@ export default class App extends Component {
   
   state = {
     videos: [],
-    selected: null
+    selected: ''
   }
 
   onFormSubmit = async (text) => {
@@ -25,11 +25,15 @@ export default class App extends Component {
       console.log(response.data.items)
       this.setState({videos: response.data.items})
       
+      
     } catch (e) {
       console.log('Error: ', e)
     }
-    
-    
+  }
+
+  onVideoSelect = async (index) => {
+    const videoId = this.state.videos[index].id.videoId
+    await this.setState({selected: 'https://www.youtube.com/embed/' + videoId})
   }
   
   render() {
@@ -49,11 +53,15 @@ export default class App extends Component {
         <div 
           className='ui container centered grid'
           style={{minHeight: '60vh'}}>
-          <div className='twelve wide column' style={{backgroundColor: 'lightblue'}}>
-            <VideoPlayer />
+          <div className='eleven wide column' style={{backgroundColor: 'lightblue', maxHeight: '70vh'}}>
+            <VideoPlayer video={this.state.selected}/>
           </div>
-          <div className='four wide column' style={{backgroundColor: 'lightyellow'}}>
-            <VideoList />
+          <div 
+            className='five wide column' 
+            style={{backgroundColor: 'lightyellow'}}>
+            <VideoList 
+              onVideoSelect={this.onVideoSelect}
+              videoList={this.state.videos}/>
           </div>
         </div>
       </div>

@@ -1,11 +1,28 @@
-import React, { Component } from 'react'
+import React from 'react'
+import VideoPreview from './VideoPreview'
 
-export default class VideoList extends Component {
-  render() {
-    return (
-      <div className='ui'>
-        VideoList
-      </div>
-    )
+const VideoList = (props) => {
+  
+  const onVideoSelect = (data) => {
+    props.onVideoSelect(data)
   }
+
+  const vidArray = props.videoList.map((vid, index) =>
+    <VideoPreview 
+      img={vid.snippet.thumbnails.medium.url}
+      itemKey={vid.id.videoId}
+      alt={vid.snippet.description}
+      title={vid.snippet.title}
+      index={index}
+      onVideoSelect={onVideoSelect}
+    />
+  )
+
+  return (
+    <div>
+      {vidArray}
+    </div>
+  )
 }
+
+export default VideoList
